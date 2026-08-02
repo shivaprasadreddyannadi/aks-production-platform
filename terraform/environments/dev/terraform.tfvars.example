@@ -1,0 +1,5 @@
+location            = "centralus"
+resource_group_name = "rg-aks-platform-dev-centralus"
+environment         = "dev"
+
+aks_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-network-dev-centralus/providers/Microsoft.Network/virtualNetworks/vnet-hub-dev-centralus/subnets/snet-aks"
