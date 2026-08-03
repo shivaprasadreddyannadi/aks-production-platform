@@ -3,13 +3,12 @@ resource "azurerm_kubernetes_cluster" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
+  sku_tier            = var.sku_tier
 
   role_based_access_control_enabled = true
   azure_policy_enabled              = var.azure_policy_enabled
   oidc_issuer_enabled               = true
   workload_identity_enabled         = true
-
-  sku_tier = var.sku_tier
 
   default_node_pool {
     name                 = var.system_node_pool_name

@@ -19,12 +19,12 @@ variable "dns_prefix" {
 }
 
 variable "subnet_id" {
-  description = "Subnet ID used by the AKS system node pool."
+  description = "Subnet ID used by the AKS node pool."
   type        = string
 }
 
 variable "system_node_pool_name" {
-  description = "Name of the AKS system node pool."
+  description = "Name of the system node pool."
   type        = string
   default     = "system"
 }
@@ -39,11 +39,6 @@ variable "system_node_min_count" {
   description = "Minimum number of system nodes."
   type        = number
   default     = 2
-
-  validation {
-    condition     = var.system_node_min_count >= 1
-    error_message = "The system node pool must contain at least one node."
-  }
 }
 
 variable "system_node_max_count" {
@@ -53,12 +48,12 @@ variable "system_node_max_count" {
 
   validation {
     condition     = var.system_node_max_count >= var.system_node_min_count
-    error_message = "The maximum node count must be greater than or equal to the minimum."
+    error_message = "Maximum node count must be greater than or equal to minimum node count."
   }
 }
 
 variable "system_node_os_disk_size_gb" {
-  description = "Operating-system disk size for system nodes."
+  description = "OS disk size for system nodes."
   type        = number
   default     = 64
 }
@@ -70,7 +65,7 @@ variable "service_cidr" {
 }
 
 variable "dns_service_ip" {
-  description = "IP address used by the Kubernetes DNS service."
+  description = "IP address used by Kubernetes DNS."
   type        = string
   default     = "10.240.0.10"
 }
@@ -85,11 +80,6 @@ variable "sku_tier" {
   description = "AKS SKU tier."
   type        = string
   default     = "Free"
-
-  validation {
-    condition     = contains(["Free", "Standard", "Premium"], var.sku_tier)
-    error_message = "The SKU tier must be Free, Standard, or Premium."
-  }
 }
 
 variable "tags" {

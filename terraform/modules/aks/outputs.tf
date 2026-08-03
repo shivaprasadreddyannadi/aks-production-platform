@@ -8,11 +8,6 @@ output "cluster_name" {
   value       = azurerm_kubernetes_cluster.this.name
 }
 
-output "kubelet_identity" {
-  description = "AKS kubelet managed identity."
-  value       = azurerm_kubernetes_cluster.this.kubelet_identity
-}
-
 output "oidc_issuer_url" {
   description = "OIDC issuer URL used for workload identity."
   value       = azurerm_kubernetes_cluster.this.oidc_issuer_url
