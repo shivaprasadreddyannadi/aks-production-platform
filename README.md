@@ -40,6 +40,7 @@ The project is designed for portfolio and architecture demonstration. It does no
 - [x] Add autoscaling and availability controls
 - [x] Add Network Policies
 - [x] Add automated platform validation
+- [x] Add runtime secret-management patterns
 - [ ] Add monitoring configuration
 - [ ] Add architecture documentation
 - [ ] Add operational runbooks
