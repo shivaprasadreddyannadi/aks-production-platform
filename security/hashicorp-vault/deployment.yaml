@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform-app-vault
+  namespace: platform-app
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: platform-app-vault
+
+  template:
+    metadata:
+      labels:
+        app: platform-app-vault
+
+    spec:
+      serviceAccountName: platform-app-vault
+
+      volumes:
+        - name: vault-secrets
+          emptyDir:
+            medium: Memory
+
+        - name: vault-config
+          configMap:
+            name: platform-app-vault-agent
+
+      containers:
+        - name: platform-app
+          image: nginx:1.27-alpine
+
+          volumeMounts:
+            - name: vault-secrets
+              mountPath: /vault/secrets
+              readOnly: true
+
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+        - name: vault-agent
+          image: hashicorp/vault:1.20
+
+          args:
+            - agent
+            - -config=/vault/config/agent.hcl
+
+          env:
+            - name: VAULT_ADDR
+              value: "https://vault.example.com"
+
+          volumeMounts:
+            - name: vault-secrets
+              mountPath: /vault/secrets
+
+            - name: vault-config
+              mountPath: /vault/config
+              readOnly: true
+
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
