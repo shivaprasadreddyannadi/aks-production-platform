@@ -1,0 +1,20 @@
+The {{ include "platform-app.fullname" . }} chart was rendered successfully.
+
+Service name:
+  {{ include "platform-app.fullname" . }}
+
+Service type:
+  {{ .Values.service.type }}
+
+{{- if .Values.ingress.enabled }}
+
+Ingress hosts:
+{{- range .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}
+{{- end }}
+
+{{- else }}
+
+Ingress is disabled.
+
+{{- end }}
