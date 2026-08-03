@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+
+metadata:
+  name: platform-alerts
+
+spec:
+  groups:
+    - name: platform.rules
+
+      rules:
+
+        - alert: HighCPUUsage
+          expr: cpu_usage > 80
+          for: 5m
+          labels:
+            severity: warning
+
+        - alert: HighMemoryUsage
+          expr: memory_usage > 80
+          for: 5m
+          labels:
+            severity: critical

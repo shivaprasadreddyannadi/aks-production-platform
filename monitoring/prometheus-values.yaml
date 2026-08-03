@@ -1,0 +1,21 @@
+server:
+  retention: 15d
+
+  persistentVolume:
+    enabled: true
+    size: 20Gi
+
+alertmanager:
+  enabled: true
+
+pushgateway:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+serviceMonitor:
+  enabled: true
