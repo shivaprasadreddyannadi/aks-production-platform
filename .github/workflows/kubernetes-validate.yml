@@ -1,0 +1,28 @@
+name: Kubernetes Validation
+
+on:
+  push:
+    paths:
+      - 'kubernetes/**'
+      - '.github/workflows/kubernetes-validate.yml'
+
+  pull_request:
+    paths:
+      - 'kubernetes/**'
+
+jobs:
+  validate:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Validate YAML Files
+        run: |
+          find kubernetes -name "*.yaml" -exec echo "Checking {}" \;
